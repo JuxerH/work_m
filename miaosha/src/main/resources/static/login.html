@@ -2,12 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link href="static/assets/global/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="static/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
-    <link href="static/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
-    <script src="static/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
-
-    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="jquery-1.11.0.min.js" type="text/javascript"></script>
+    <title>登陆</title>
 </head>
 <body class="login">
 <div class="content">
@@ -67,7 +66,7 @@
                 success: function (data) {
                     if (data.status == "success") {
                         alert("登陆成功");
-                        window.location.href="/work_m/html/listitem.html";
+                        window.location.href="listitem.html";
                     } else {
                         alert("登陆失败，原因为" + data.data.errMsg);
                     }

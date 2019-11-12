@@ -40,7 +40,7 @@ public CommonReturnType login(@RequestParam(name = "telphone")String telphone,@R
         UserModel userModel= userService.validateLogin(telphone,this.EncodeByMd5(password));
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);
         this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userModel);
-
+        this.httpServletRequest.getSession().setAttribute("username",userModel.getName());
         return CommonReturnType.create(null);
     }
     @RequestMapping(value = "/register", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
@@ -105,6 +105,11 @@ public String EncodeByMd5(String str) throws NoSuchAlgorithmException, Unsupport
         BeanUtils.copyProperties(userModel, userVO);
         return userVO;
     }
-
+    @RequestMapping(value = "/loginStatus")
+    @ResponseBody
+    public String loginStatus(){
+        String name = this.httpServletRequest.getSession().getAttribute("username").toString();
+        return name;
+    }
 
 }
