@@ -68,6 +68,11 @@
             立即购买
         </button>
     </div>
+    <div class="form-actions">
+        <button class="btn yellow" id="returnItemList" type="submit">
+            返回商品列表
+        </button>
+    </div>
 </div>
 </body>
 
@@ -124,9 +129,14 @@
                     }
                 },
                 error: function(data) {
+
                     alert("下单失败，原因为" + data.responseText);
                 }
             });
+        });
+        $('#returnItemList').on('click',function(){
+
+            window.location.href="listitem.html";
         });
 
     });
