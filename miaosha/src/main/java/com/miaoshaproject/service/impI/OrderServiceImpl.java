@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         // 校验活动信息
-        if(promoId != null) {
+        if(promoId != null&&promoId!=0) {
             // 1. 校验对应活动是否存在对应商品
             if(promoId.intValue() != itemModel.getPromoModel().getId()) {
                 throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"活动信息不正确");
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setUserId(userId);
         orderModel.setItemId(itemId);
         orderModel.setAmount(amount);
-        if(promoId != null) {
+        if(promoId != null&&promoId!=0) {
             orderModel.setItemPrice(itemModel.getPromoModel().getPromoItemPrice());
         } else {
             orderModel.setItemPrice(itemModel.getPrice());

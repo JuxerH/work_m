@@ -41,6 +41,7 @@ public CommonReturnType login(@RequestParam(name = "telphone")String telphone,@R
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);
         this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userModel);
         this.httpServletRequest.getSession().setAttribute("username",userModel.getName());
+        this.httpServletRequest.getSession().setAttribute("userId",userModel.getId());
         return CommonReturnType.create(null);
     }
     @RequestMapping(value = "/register", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
@@ -111,5 +112,13 @@ public String EncodeByMd5(String str) throws NoSuchAlgorithmException, Unsupport
         String name = this.httpServletRequest.getSession().getAttribute("username").toString();
         return name;
     }
+    @RequestMapping(value = "/loginId")
+    @ResponseBody
+    public Integer loginId(){
+        Integer userId=Integer.valueOf( this.httpServletRequest.getSession().getAttribute("userId").toString());
+        return userId;
+    }
+
+
 
 }

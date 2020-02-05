@@ -102,6 +102,8 @@ public class ItemServiceImpl implements ItemService {
         PromoModel promoModel = promoService.getPromoById(itemModel.getId());
         if(promoModel != null && promoModel.getStatus().intValue() != 3) {
             itemModel.setPromoModel(promoModel);
+        }else {
+            itemModel.setPromoModel(new PromoModel());
         }
 
         return itemModel;
@@ -124,6 +126,12 @@ public class ItemServiceImpl implements ItemService {
     public void increaseSales(Integer itemId, Integer amount) throws BusinessException {
         itemDOMapper.increaseSales(itemId,amount);
 
+    }
+
+    @Override
+    @Transactional
+    public boolean returnStock(Integer itemId, Integer itemAmount) {
+        return itemStockDOMapper.returnStock(itemId,itemAmount)>0?true:false;
     }
 
     private ItemModel convertModelFromDataObject(ItemDO itemDO, ItemStockDO itemStockDO) {

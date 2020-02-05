@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="referrer" content="no-referrer" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="jquery-1.11.0.min.js" type="text/javascript"></script>
+<title>我的购物车</title>
+</head>
+<body>
+<h3>我的购物车</h3>
+<div id="loginstatus" style="float:right;margin-top: 15px;margin-right: 40px;">
+    <span id="username" style="font-size: 15px;background-color: #0c91e5"></span>
+    <button class="btn green" id="home" type="submit">
+        返回主页
+    </button>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>商品名</th>
+            <th>商品图片</th>
+            <th>商品价格</th>
+            <th>商品数量</th>
+            <th>商品总价格</th>
+        </tr>
+        </thead>
+        <tbody id="container">
+
+        </tbody>
+    </table>
+    </div>
+<div id="cartService" style="float:right;margin-bottom: 15px;margin-right: 40px;">
+    <button class="btn green" id="purchase" type="submit">
+        付款
+    </button>
+    <button class="btn red" id="clearCart" type="submit">
+        清空购物车
+    </button>
+</div>
+</body>
+<script>
+    var g_cartList = [];
+    var g_userId=0;
+    $(document).ready(function() {
+        $.ajax({
+            url: "http://localhost:8090/user/loginStatus",
+            xhrFields:{
+                withCredentials:true,
+            },
+            success: function(data) {
+                if(data.status!="fail"){
+                    $('#username').text("当前登陆："+data);
+                }
+                else {
+                    alert("当前未登录");
+                    window.location.href="listitem.html";
+                }
+            }
+
+        });
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8090/cart/listcart",
+            contentType: "application/x-www-form-urlencoded",
+            xhrFields: {
+                withCredentials: true,
+            },
+            success: function (data) {
+                if (data.status == "success") {
+                    g_cartList = data.data;
+                    reloadDom();
+                } else {
+                    alert("获取购物车信息失败，原因为" + data.data.errMsg);
+                }
+            },
+            error: function (data) {
+                alert("获取购物车信息失败，原因为" + data.responseText);
+            }
+        })
+        function reloadDom() {
+            for (var i = 0; i < g_cartList.length; i++) {
+                var cartVO =g_cartList[i];
+                var dom =
+                    "<tr>\
+			<td>"+cartVO.itermTitle+"</td>\
+			<td><img style='width:100px;heigth:auto;' src='"+cartVO.ImagUrl+"'/></td>\
+			<td>"+cartVO.itermPrice+"</td>\
+			<td>"+cartVO.itermNum+"</td>\
+			<td>"+cartVO.itermTotal+"</td>\
+			</tr>";
+                $("#container").append($(dom));
+            }
+
+        }
+        $('#home').on('click',function () {
+            window.location.href="listitem.html"
+        })
+        $('#clearCart').on('click',function(){
+            $.ajax({
+                type: "GET",
+                url:"http://localhost:8090/cart/clear_cart",
+                xhrFields:{
+                    withCredentials:true
+                },
+                success:function (data) {
+                    if(data.status=="success"){
+                        alert("清除购物车成功");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("清除购物车未成功")
+                    }
+                }})
+
+        });
+        $('#purchase').on('click',function(){
+           $.ajax({
+               type:"GET",
+               url:"http://localhost:8090/cart/purchase",
+               xhrFields:{
+                   withCredentials:true
+               },
+               contentType: "application/x-www-form-urlencoded",
+               success:function (data) {
+                   if(data.status=="success"){
+                       alert("下单成功");
+                       clearAfterP();
+                   }
+                   else alert("下单失败");
+               },
+               error:function () {
+                 alert("连接失败");
+               }
+           })
+        });
+    })
+    function clearAfterP() {
+        $.ajax({
+            type: "GET",
+            url:"http://localhost:8090/cart/clear_cart",
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (data) {
+                if(data.status=="success"){
+                    window.location.reload();
+                }}})
+
+    }
+
+</script>
+</html>

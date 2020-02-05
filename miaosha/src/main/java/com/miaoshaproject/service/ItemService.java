@@ -18,4 +18,5 @@ public interface ItemService {
     //商品下单后对应销量增加
     void increaseSales(Integer itemId,Integer amount) throws BusinessException;
 
+    boolean returnStock(Integer itemId,Integer itemAmount);
 }

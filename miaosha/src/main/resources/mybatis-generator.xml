@@ -67,7 +67,7 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 -->
-        <table tableName="promo" domainObjectName="PromoDO"
+        <table tableName="shopping_cart" domainObjectName="ShoppingCartDO"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

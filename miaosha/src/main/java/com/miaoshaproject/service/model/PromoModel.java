@@ -24,6 +24,9 @@ public class PromoModel {
     //秒杀获得的商品价格
     private BigDecimal promoItemPrice;
 
+   public PromoModel(){
+        id=0;
+    }
     public Integer getId() {
         return id;
     }

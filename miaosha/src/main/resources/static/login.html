@@ -31,6 +31,9 @@
         <button class="btn green" id="register" type="submit">
             注册
         </button>
+        <button class="btn red" id="home" type="submit">
+            商城主页
+        </button>
     </div>
 </div>
 </body>
@@ -77,6 +80,9 @@
             });
             return false;
         });
+        $("#home").on("click",function () {
+            window.location.href="listitem.html"
+        })
     });
 </script>
 </html>

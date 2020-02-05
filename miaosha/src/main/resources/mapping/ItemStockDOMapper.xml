@@ -126,4 +126,9 @@ update item_stock
 set stock = stock - #{amount}
 where item_id = #{itemId} and stock >= #{amount}
 </update>
+    <update id="returnStock">
+        update item_stock
+        set stock=stock+#{itemAmount}
+        where item_id=#{itemId}
+    </update>
 </mapper>

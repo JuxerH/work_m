@@ -67,6 +67,9 @@
         <button class="btn blue" id="createOrder" type="submit">
             立即购买
         </button>
+        <button class="btn green" id="addCart" type="submit">
+            加入购物车
+        </button>
     </div>
     <div class="form-actions">
         <button class="btn yellow" id="returnItemList" type="submit">
@@ -134,6 +137,39 @@
                 }
             });
         });
+
+        $("#addCart").on("click", function() {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8090/cart/addcart",
+                contentType: "application/x-www-form-urlencoded",
+                data: {
+                    "itemId": g_itemVO.id,
+                    "promoId": g_itemVO.promoId,
+                    "amount": 1,
+                },
+                xhrFields:{
+                    withCredentials:true
+                },
+                success: function(data) {
+                    // alert(data);
+                    if (data.status == "success") {
+                        alert("加入购物车成功");
+                        window.location.reload();
+                    } else {
+                        alert("加入购物车失败，11原因为" + data.data.errMsg);
+                        if (data.data.errCode == 20003) {
+                            window.location.href="login.html";
+                        }
+                    }
+                },
+                error: function(data) {
+                    alert(data);
+                    alert("加入购物车失败，22原因为" + data.responseText);
+                }
+            });
+        });
+
         $('#returnItemList').on('click',function(){
 
             window.location.href="listitem.html";
