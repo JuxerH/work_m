@@ -1,88 +1,334 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="components.css">
-    <link rel="stylesheet" href="login.css">
-    <script src="jquery-1.11.0.min.js" type="text/javascript"></script>
-    <title>登陆</title>
-</head>
-<body class="login">
-<div class="content">
-    <h3 class="form-title">用户登陆</h3>
-    <div class="form-group">
-        <label class="control-label">手机号</label>
-        <div>
-            <input class="form-control" type="text" placeholder="手机号" name="telphone" id="telphone">
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.5.2
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>SuperTao</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="assets/global/css/components-md.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="assets/global/css/plugins-md.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <!-- END HEAD -->
+
+    <body class=" login">
+        <div class="menu-toggler sidebar-toggler"></div>
+        <!-- END SIDEBAR TOGGLER BUTTON -->
+        <!-- BEGIN LOGO -->
+        <div class="logo">
+            <a href="index.html" style="font-size: 40px;color: whitesmoke;font-weight: bold">
+                Super<span style="font-size: 40px;color: red">Tao</span></a>
         </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label">密码</label>
-        <div>
-            <input class="form-control" type="password" placeholder="密码" name="password" id="password">
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <!-- BEGIN LOGIN FORM -->
+            <form class="login-form">
+                <h3 class="form-title font-green">登陆</h3>
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    <span> Enter any username and password. </span>
+                </div>
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9">用户手机号</label>
+                    <input class="form-control form-control-solid placeholder-no-fix"
+                           type="text" autocomplete="off" placeholder="用户手机号" name="username"
+                           id="telphone"/> </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="password"
+                           autocomplete="off" placeholder="密码" name="password"
+                    id="password"/> </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn green uppercase" id="login">确认</button>
+                    <label class="rememberme check">
+                        <input type="checkbox" id="remember" />记住密码 </label>
+                    </div>
+                <div class="create-account">
+                    <p>
+                        <a href="javascript:;" id="register-btn" class="uppercase">创建一个新账户</a>
+                    </p>
+                </div>
+            </form>
+            <!-- END LOGIN FORM -->
+            <!-- BEGIN REGISTRATION FORM -->
+            <form class="register-form">
+                <h3 class="font-green">注册</h3>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">手机</label>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="手机号码" name="telphone"
+                    id="r_telphone"/> </div>
+                <div class="form-group">
+                    <div style="width: 185px;float: left;margin-right: 15px;">
+                        <input class="form-control" type="text" placeholder="验证码" name="otpCOde" id="otpCode">
+                    </div>
+                    <button class="btn green" id="getotpcode" type="button">
+                        获取验证码
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">昵称</label>
+                    <input class="form-control placeholder-no-fix" type="text"
+                           autocomplete="off" placeholder="用户昵称" name="username"
+                    id="username"/> </div>
+                <div class="form-group">
+                    <label class="label " style=" border: 10px;margin-left: 30px ;color: grey;font-size: 15px;size: 60px">性别</label>
+                    <label class="btn green" style="margin-left: 30px; font-size: 15px;color: rgba(5,1,14,0.36)"for="male">男</label>
+                    <input class="form-control"
+                           type="radio"  name="gender" value="male" id="male">
+                    <label class="btn green" style="font-size: 15px;color: rgba(5,1,14,0.36)" for="female">女</label>
+                    <input class="form-control" type="radio" name="gender" value="female" id="female">
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">年龄</label>
+                    <input class="form-control placeholder-no-fix"
+                           type="text" placeholder="年龄" name="age" id="age">
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <input class="form-control placeholder-no-fix" type="password"
+                           autocomplete="off"  placeholder="用户密码"
+                           name="password" id="r_password" /> </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">再次输入密码</label>
+                    <input class="form-control placeholder-no-fix" type="password"
+                           autocomplete="off" placeholder="再次输入密码" name="re_password"
+                    id="re_password"/> </div>
+                <div class="form-group margin-top-20 margin-bottom-20">
+                    <label class="check">
+                        <input type="checkbox" name="tnc" id="agree_clause" /> 我同意
+                        <a href="javascript:;"> 服务条款 </a> 和
+                        <a href="javascript:;"> 个人权利条款 </a>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="register-back-btn" class="btn btn-default">返回</button>
+                    <button type="button"  class="btn btn-success uppercase pull-right" id="register">确认</button>
+                </div>
+            </form>
+            <!-- END REGISTRATION FORM -->
         </div>
-    </div>
-    <div class="form-actions">
-        <button class="btn blue" id="login" type="submit">
-            登陆
-        </button>
-        <button class="btn green" id="register" type="submit">
-            注册
-        </button>
-        <button class="btn red" id="home" type="submit">
-            商城主页
-        </button>
-    </div>
-</div>
-</body>
-<script>
-    jQuery(document).ready(function () {
+        <div class="copyright"> 2020 © SuperTao. </div>
+        <!--[if lt IE 9]>
+<script src="assets/global/plugins/respond.min.js"></script>
+<script src="assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="assets/pages/scripts/login.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <!-- END THEME LAYOUT SCRIPTS -->
+    </body>
+    <script>
+        var localUser = localStorage.getItem('user') || ''; //获取到user的值并保存
+        var localPass = localStorage.getItem('pass') || ''; //获取到pwd的值并保存
+        console.log("u"+localUser);
+        console.log("p"+localPass);
+        $("#telphone").val(localUser);
+        $("#password").val(localPass);
+        if (localUser !== '' && localPass !== '') {
+            $("#remember").attr("checked","true");
+        }
+        jQuery(document).ready(function () {
+            $('#getotpcode').on('click',function(){
+                var telphone = $("#r_telphone").val();
+                if (telphone == null || telphone == "") {
+                    alert("手机号不能为空");
+                    return false;
+                }
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded",
+                    url: "http://localhost:8090/user/getotp",
+                    data: {
+                        "telphone": $("#r_telphone").val(),
+                    },
+                    xhrFields:{withCredentials:true},//前端授信
+                    success: function (data) {
+                        if (data.status == "success") {
+                            alert("otp已经发送到了您的手机上，请注意查收");
+                        } else {
+                            alert("otp发送失败，原因为" + data.data.errMsg);
+                        }
 
-        $("#register").on("click", function () {
-            window.location.href = "register.html"
-
-        });
-        $("#login").on("click", function () {
-            var telphone = $("#telphone").val();
-            var password = $("#password").val();
-           if (telphone == null || telphone == "") {
-                alert("手机号不能为空");
+                    }, error: function (data) {
+                        alert("otp发送失败，原因为" + data.responseText);
+                    }
+                });
                 return false;
-            }
-            if (password == null || password == "") {
-                alert("密码不能为空");
+            })
+            $("#register").on("click", function () {
+                var telphone = $("#r_telphone").val();
+                var password=$("#r_password").val();
+                var repassword=$("#re_password").val();
+                var age=$("#age").val();
+                if($("[name='gender']:checked").val()=="male")
+                {
+                   var gender=1;
+                }else {
+                    var gender=2;
+                }
+                var name=$("#username").val();
+                var otpCode=$("#otpCode").val();
+                if (telphone == null || telphone == "") {
+                    alert("手机号不能为空");
+                    return false;
+                }
+                if (password == null || password == "") {
+                    alert("密码不能为空");
+                    return false;
+                }
+                if (age == null || age == "") {
+                    alert("年龄不能为空");
+                    return false;
+                }
+                if (gender == null || gender == "") {
+                    alert("性别不能为空");
+                    return false;
+                }
+                if (password!=repassword) {
+                    alert("两次输入密码不一致，请重新输入");
+                    return false;
+                }
+                if ($("#agree_clause").prop("checked")!=true) {
+                    alert("请勾选同意条款");
+                    return false;
+                }
+                console.log("telphone "+telphone+
+                    " password "+password,
+                    " age "+age+
+                    " gender "+gender+
+                    " otpCode "+otpCode+
+                    " name "+name
+            );
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded",
+                    url: "http://localhost:8090/user/register",
+                    data: {
+                        "telphone": telphone,
+                        "password":password,
+                        "age":age,
+                        "gender":gender,
+                        "otpCode":otpCode,
+                        "name":name
+                    },xhrFields:{withCredentials:true},//前端授信
+                    success: function (data) {
+                        if (data.status == "success") {
+                            alert("注册成功");
+                            window.location.reload();
+                        } else {
+                            alert("注册失败，原因为" + data.data.errMsg);
+                        }
+
+                    }, error: function (data) {
+                        alert("注册失败，数据错误");
+                    }
+                });
                 return false;
-            }
-
-
-            $.ajax({
-                type: "POST",
-                contentType: "application/x-www-form-urlencoded",
-                url: "http://localhost:8090/user/login",
-                data: {
-                    "telphone": $("#telphone").val(),
-                    "password": password,
-
-                }, xhrFields: {withCredentials: true},//前端授信
-                success: function (data) {
-                    if (data.status == "success") {
-                        alert("登陆成功");
-                        window.location.href="listitem.html";
+            })
+            $("#login").on("click", function () {
+                var telphone = $("#telphone").val();
+                var password = $("#password").val();
+                if (telphone == null || telphone == "") {
+                    alert("手机号不能为空");
+                    return false;
+                }
+                if (password == null || password == "") {
+                    alert("密码不能为空");
+                    return false;
+                }
+                    if ($("#remember").prop("checked")) {
+                        localStorage.setItem('user', telphone);
+                        localStorage.setItem('pass', password);
                     } else {
-                        alert("登陆失败，原因为" + data.data.errMsg);
+                        localStorage.setItem('user', '');
+                        localStorage.setItem('pass', '');
                     }
 
-                }, error: function (data) {
-                    alert("登陆失败，原因为" + data.responseText);
-                }
-            });
-            return false;
+
+                    $.ajax({
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded",
+                    url: "http://localhost:8090/user/login",
+                    data: {
+                        "telphone": telphone,
+                        "password": password,
+
+                    }, xhrFields: {withCredentials: true},//前端授信
+                    success: function (data) {
+                        if (data.status == "success") {
+                            alert("登陆成功");
+                            window.location.href="index.html";
+                        } else {
+                            alert("登陆失败，原因为" + data.data.errMsg);
+                        }
+
+                    }, error: function (data) {
+                        alert("登陆失败，原因为" + data.responseText);
+                    }
+                });
+                return false;
+            })
+            $("#home").on("click",function () {
+                window.location.href="listitem.html"
+            })
         });
-        $("#home").on("click",function () {
-            window.location.href="listitem.html"
-        })
-    });
-</script>
+    </script>
 </html>

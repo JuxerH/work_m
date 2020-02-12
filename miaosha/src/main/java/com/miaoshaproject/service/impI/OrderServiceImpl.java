@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -94,6 +96,16 @@ public class OrderServiceImpl implements OrderService {
         return orderModel;
     }
 
+    @Override
+    public List<OrderModel> listOrder() {
+        List<OrderDO> orderDOList=orderDOMapper.listAllRecord();
+        List<OrderModel> orderModelList=orderDOList.stream().map(orderDO -> {
+            OrderModel orderModel=convertFromDO(orderDO);
+            return orderModel;
+        }).collect(Collectors.toList());
+        return orderModelList;
+    }
+
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     String generatorOrderNo(){
@@ -129,5 +141,10 @@ public class OrderServiceImpl implements OrderService {
         OrderDO orderDO = new OrderDO();
         BeanUtils.copyProperties(orderModel,orderDO);
         return orderDO;
+    }
+    private OrderModel convertFromDO(OrderDO orderDO){
+        OrderModel orderModel=new OrderModel();
+        BeanUtils.copyProperties(orderDO,orderModel);
+        return orderModel;
     }
 }

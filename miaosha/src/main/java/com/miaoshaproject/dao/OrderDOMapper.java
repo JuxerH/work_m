@@ -3,6 +3,8 @@ package com.miaoshaproject.dao;
 import com.miaoshaproject.dataobject.OrderDO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface OrderDOMapper {
     /**
@@ -51,5 +53,6 @@ public interface OrderDOMapper {
      *
      * @mbg.generated Mon Nov 11 14:56:19 CST 2019
      */
+    List<OrderDO> listAllRecord();
     int updateByPrimaryKey(OrderDO record);
 }

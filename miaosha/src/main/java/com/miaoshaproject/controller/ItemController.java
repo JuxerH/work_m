@@ -66,6 +66,17 @@ public class ItemController extends BaseController {
         return CommonReturnType.create(itemVOList);
     }
 
+    @RequestMapping(value = "/search", method = {RequestMethod.GET})
+    @ResponseBody
+    public CommonReturnType searchItem(@RequestParam(name= "keyword")String keyword){
+        List<ItemModel> resultList=itemService.searchItem(keyword);
+        if(resultList.size()==0)return CommonReturnType.create("无结果","success");
+        List<ItemVO> resultVOList =resultList.stream().map(result -> {
+            ItemVO itemVO = convertVOFromModel(result);
+            return itemVO;
+        }).collect(Collectors.toList());
+        return CommonReturnType.create(resultVOList);
+    }
 
 
 

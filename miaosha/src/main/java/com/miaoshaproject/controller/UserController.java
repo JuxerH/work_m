@@ -6,10 +6,12 @@ import com.miaoshaproject.error.EmBusinessError;
 import com.miaoshaproject.response.CommonReturnType;
 import com.mysql.cj.util.Base64Decoder;
 import com.mysql.cj.util.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.miaoshaproject.service.UserService;
 import com.miaoshaproject.service.model.UserModel;
@@ -20,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Random;
 
 @Controller(value = "user")
@@ -31,7 +35,8 @@ public class UserController extends BaseController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @RequestMapping(value = "/login", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @RequestMapping(value = "/login", method = {RequestMethod.POST},
+            consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody//用户登录接口
 public CommonReturnType login(@RequestParam(name = "telphone")String telphone,@RequestParam(name="password")String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
         if(org.apache.commons.lang3.StringUtils.isEmpty(telphone)|| StringUtils.isNullOrEmpty(password)){
@@ -44,8 +49,10 @@ public CommonReturnType login(@RequestParam(name = "telphone")String telphone,@R
         this.httpServletRequest.getSession().setAttribute("userId",userModel.getId());
         return CommonReturnType.create(null);
     }
-    @RequestMapping(value = "/register", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @RequestMapping(value = "/register",
+            method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody//用户注册接口
+    @Transactional
     public CommonReturnType register(@RequestParam(name = "telphone") String telphone,
                                      @RequestParam(name = "otpCode") String otpCode,
                                      @RequestParam(name = "name") String name,
@@ -98,6 +105,24 @@ public String EncodeByMd5(String str) throws NoSuchAlgorithmException, Unsupport
         return CommonReturnType.create(userVO);
     }
 
+    @RequestMapping(value = "/outlogin")
+    @ResponseBody
+    @Transactional
+    public CommonReturnType logOut(){
+        Enumeration em = httpServletRequest.getSession().getAttributeNames();
+        while(em.hasMoreElements()){
+            httpServletRequest.getSession().removeAttribute(em.nextElement().toString());
+        }
+        return CommonReturnType.create(null);
+    }
+
+    @RequestMapping(value = "/listAllUser")
+    @ResponseBody
+    public CommonReturnType listAllUser(){
+        List<UserModel> userModelList=userService.listAllUser();
+        return CommonReturnType.create(userModelList);
+    }
+
     private UserVO convertFromModel(UserModel userModel) {
         if (userModel == null) {
             return null;
@@ -112,6 +137,14 @@ public String EncodeByMd5(String str) throws NoSuchAlgorithmException, Unsupport
         String name = this.httpServletRequest.getSession().getAttribute("username").toString();
         return name;
     }
+
+    @RequestMapping(value = "/deleteUser")
+    @ResponseBody
+    public CommonReturnType deleteUser(@RequestParam(name = "userId")Integer userId){
+        return CommonReturnType.create(userService.deleteUserById(userId));
+    }
+
+
     @RequestMapping(value = "/loginId")
     @ResponseBody
     public Integer loginId(){

@@ -17,6 +17,9 @@ import com.miaoshaproject.service.UserService;
 import com.miaoshaproject.service.model.UserModel;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -27,10 +30,10 @@ public class UserServiceImpl implements UserService {
     private ValidatorImpl validator;
 
     @Override
-    public UserModel getUserById(Integer id) {
+    public UserModel getUserById(Integer id) throws BusinessException {
         UserDO userDO = userDOMapper.selectByPrimaryKey(id);
         if (userDO == null) {
-            return null;
+           throw new BusinessException(EmBusinessError.CAUSE_BY_USER_DELETE,"某些用户删除引起的错误");
         }
         UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userDO.getId());
         return convertFromDataObject(userDO, userPasswordDO);
@@ -78,6 +81,22 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
         }
         return userModel;
+    }
+
+    @Override
+    public List<UserModel> listAllUser() {
+        List<UserDO> userDOList=userDOMapper.listAllUser();
+        List<UserModel> userModelList=new ArrayList<UserModel>();
+        for (int i=0;i<userDOList.size();i++) {
+            UserModel userModel=convertFromDataObject(userDOList.get(i),null);
+            userModelList.add(userModel);
+        }
+        return userModelList;
+    }
+
+    @Override
+    public boolean deleteUserById(Integer userId) {
+        return userDOMapper.deleteByPrimaryKey(userId)>0&&userPasswordDOMapper.deleteByPrimaryKey(userId)>0;
     }
 
     private UserPasswordDO convertPasswordFromModel(UserModel userModel) {

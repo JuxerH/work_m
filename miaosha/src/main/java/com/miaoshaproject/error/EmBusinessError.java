@@ -8,7 +8,9 @@ public enum EmBusinessError implements CommonError {
     USER_LOGIN_FAIL(20002, "用户手机号或密码不正确"),
     USER_NOT_LOGIN(20003,"用户还未登录"),
 
-    STOCK_NOT_ENOUGH(30001, "库存不足"),;
+    STOCK_NOT_ENOUGH(30001, "库存不足"),
+
+    CAUSE_BY_USER_DELETE(40001,"某些用户数据被删除引起的错误"),;
 
     private EmBusinessError(int errCode, String errMsg) {
         this.errCode = errCode;

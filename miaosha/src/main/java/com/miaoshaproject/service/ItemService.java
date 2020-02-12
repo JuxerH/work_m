@@ -11,6 +11,8 @@ public interface ItemService {
 
     List<ItemModel>listItem();
 
+    List<ItemModel>searchItem(String keyword);
+
     ItemModel getItemById(Integer id);
 
     boolean decreaseStock(Integer itemId,Integer amount) throws BusinessException;

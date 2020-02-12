@@ -3,6 +3,8 @@ package com.miaoshaproject.dao;
 import com.miaoshaproject.dataobject.UserDO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface UserDOMapper {
     /**
@@ -52,4 +54,6 @@ public interface UserDOMapper {
      * @mbg.generated Tue Nov 05 13:47:17 GMT+08:00 2019
      */
     int updateByPrimaryKey(UserDO record);
+
+    List<UserDO> listAllUser();
 }

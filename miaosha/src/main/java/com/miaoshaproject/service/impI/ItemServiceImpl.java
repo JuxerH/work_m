@@ -18,7 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,6 +91,27 @@ public class ItemServiceImpl implements ItemService {
             return itemModel;
         }).collect(Collectors.toList());
         return itemModelList;
+    }
+
+    @Override
+    public List<ItemModel> searchItem(String keyword) {
+        List<ItemDO>itemDOList=itemDOMapper.listItem();
+        List<ItemModel>  itemModelList=  itemDOList.stream().map(itemDO -> {
+            ItemStockDO itemStockDO=itemStockDOMapper.selectByItemId(itemDO.getId());
+            ItemModel itemModel=this.convertModelFromDataObject(itemDO,itemStockDO);
+            return itemModel;
+        }).collect(Collectors.toList());
+        Pattern pattern=Pattern.compile(keyword,Pattern.CASE_INSENSITIVE);
+        List<ItemModel> resultList=new ArrayList<ItemModel>();
+        for (ItemModel itemModel:itemModelList) {
+            Matcher matcher_1=pattern.matcher(itemModel.getTitle());
+            Matcher matcher_2=pattern.matcher(itemModel.getDescription());
+            if(matcher_1.find()==true||matcher_2.find()==true)
+            {
+                resultList.add(itemModel);
+            }
+        }
+        return resultList;
     }
 
     @Override
