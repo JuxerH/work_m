@@ -460,6 +460,23 @@ License: You must have a valid license purchased only from themeforest(the above
                 $('#userPic').attr("src","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2519824424,1132423651&fm=26&gp=0.jpg");
                 $('#userId').text(data);
                 $('#unlogin').hide();
+                $.ajax({
+                    url:"http://localhost:8090/user/userType",
+                    xhrFields:{
+                        withCredentials:true,
+                    },
+                    success:function (data) {
+                        if(data.status=="success")
+                        {
+                            if(data.data==2)
+                            {
+                                $("#createOrder").attr("disabled", true);
+                                $("#addCart").attr("disabled",true);
+                            }
+                        }
+                    },
+                });
+
             }
             else{
                 $('#userId').text("未登录");

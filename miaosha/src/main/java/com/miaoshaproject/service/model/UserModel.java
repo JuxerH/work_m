@@ -16,6 +16,15 @@ public class UserModel {
     @Max(value = 150,message = "年龄必须小于150")
     private Integer age;
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
+    private Integer userType;//1代表顾客,2代表商家
     private String telphone;
     private String registerMode;
     private String thirdPartyId;

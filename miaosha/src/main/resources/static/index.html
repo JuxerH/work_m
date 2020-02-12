@@ -112,8 +112,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </li>
                                     <li id="profile">
                                         <a>
-                                            <i class="icon-user"></i> 我的账户 </a>
-                                    </li>
+                                            <i class="icon-user"></i> 账户类型:
+                                            <span id="userType"></span>
+                                        </a>
+                                       </li>
                                     <li class="divider"> </li>
                                     <li id="haslogin">
                                         <a  id="logOut">
@@ -152,13 +154,64 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <span class="title">商城首页</span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
+                        <li class="nav-item " id="customer-cart">
                             <a href="shoppingcart.html" class="nav-link nav-toggle">
                                 <i class="icon-basket"></i>
                                 <span class="title">购物车</span>
                             </a>
                            </li>
-                       </ul>0
+                        <li class="nav-item  " id="manager-product" style="display: none">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-graph"></i>
+                                <span class="title">商品管理</span>
+                                <span class="selected"></span>
+                                <span class="arrow "></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="showallitem.html" class="nav-link ">
+                                        <i class="icon-layers"></i>
+                                        <span class="title">全部商品</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="createitem.html" class="nav-link ">
+                                        <i class="icon-tag"></i>
+                                        <span class="title">商品添加</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item  " id="manager-user" style="display: none">
+                            <a href="usersManage.html" class="nav-link nav-toggle">
+                                <i class="icon-users"></i>
+                                <span class="title">用户管理</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item "id="manager-order" style="display: none">
+                            <a  class="nav-link nav-toggle">
+                                <i class="icon-bar-chart"></i>
+                                <span class="title">订单管理</span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item ">
+                                    <a href="dealrecord.html" class="nav-link ">
+                                        <i class="fa fa-server"></i>
+                                        <span class="title">所有订单</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="searchOrder.html" class="nav-link ">
+                                        <i class="fa fa-search"></i>
+                                        <span class="title">订单查询</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                    </ul>0
                     <!-- END SIDEBAR MENU -->
                 </div>
                 <!-- END SIDEBAR -->
@@ -291,6 +344,34 @@ License: You must have a valid license purchased only from themeforest(the above
                     $('#userPic').attr("src", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2519824424,1132423651&fm=26&gp=0.jpg");
                     $('#userId').text(data);
                     $('#unlogin').hide();
+                    $.ajax({
+                        url:"http://localhost:8090/user/userType",
+                        xhrFields:{
+                            withCredentials:true,
+                        },
+                        success:function (data) {
+                            if(data.status=="success")
+                            {
+                                if(data.data==2)
+                                {
+                                    $("#manager-user").show();
+                                    $("#manager-product").show();
+                                    $("#manager-order").show();
+                                    $("#customer-cart").hide();
+                                    $("#userType").text("商家");
+                                }else {
+                                    $("#manager-user").hide();
+                                    $("#manager-product").hide();
+                                    $("#manager-order").hide();
+                                    $("#customer-cart").show();
+                                    $("#userType").text("顾客");
+                                }
+                            }
+                        },
+                        error:function () {
+
+                        }
+                    });
                 }
                 else{
                     $('#userId').text("未登录");
@@ -302,6 +383,7 @@ License: You must have a valid license purchased only from themeforest(the above
             }
 
         });
+
         $("#logOut").on("click",function () {
             $.ajax({
                 type: "GET",

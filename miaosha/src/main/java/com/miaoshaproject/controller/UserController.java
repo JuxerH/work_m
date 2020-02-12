@@ -123,6 +123,13 @@ public String EncodeByMd5(String str) throws NoSuchAlgorithmException, Unsupport
         return CommonReturnType.create(userModelList);
     }
 
+    @RequestMapping(value = "/userType")
+    @ResponseBody
+    public CommonReturnType userType() throws BusinessException {
+        UserModel userModel=userService.getUserById(Integer.valueOf(httpServletRequest.getSession().getAttribute("userId").toString()));
+        return CommonReturnType.create(userModel.getUserType());
+    }
+
     private UserVO convertFromModel(UserModel userModel) {
         if (userModel == null) {
             return null;
