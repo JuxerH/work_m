@@ -96,7 +96,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li id="profile">
                                 <a>
-                                    <i class="icon-user"></i> 我的账户 </a>
+                                    <i class="icon-user"></i> 账户类型:<span id="userType"></span> </a>
                             </li>
                             <li class="divider"></li>
                             <li id="haslogin">
@@ -374,6 +374,8 @@ License: You must have a valid license purchased only from themeforest(the above
                         $('#userPic').attr("src", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2519824424,1132423651&fm=26&gp=0.jpg");
                         $('#userId').text(data);
                         $('#unlogin').hide();
+                        $("#userType").text("商家");
+
                     } else {
                         isLogin=false;
                         $('#userId').text("未登录");

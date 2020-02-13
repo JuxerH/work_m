@@ -80,9 +80,6 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- BEGIN TOP NAVIGATION MENU -->
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
-                    <!-- END TODO DROPDOWN -->
-                    <!-- BEGIN USER LOGIN DROPDOWN -->
-                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img  id="userPic" class="img-circle" src="" />
@@ -96,7 +93,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li id="profile">
                                 <a>
-                                    <i class="icon-user"></i> 我的账户 </a>
+                                    <i class="icon-user"></i> 账户类型:
+                                <span  id="userType"></span></a>
                             </li>
                             <li class="divider"> </li>
                             <li id="haslogin">
@@ -118,17 +116,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="page-container">
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar-wrapper">
-        <!-- END SIDEBAR -->
-        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
         <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
             <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                 <li class="nav-item start ">
                     <a href="index.html" class="nav-link nav-toggle">
@@ -372,6 +360,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     $('#userPic').attr("src", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2519824424,1132423651&fm=26&gp=0.jpg");
                     $('#userId').text(data);
                     $('#unlogin').hide();
+                    $("#userType").text("顾客");
                 } else {
                     isLogin=false;
                     $('#userId').text("未登录");

@@ -96,7 +96,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li id="profile">
                                 <a>
-                                    <i class="icon-user"></i> 我的账户 </a>
+                                    <i class="icon-user"></i> 账户类型:<span id="userType"></span></a>
                             </li>
                             <li class="divider"></li>
                             <li id="haslogin">
@@ -378,13 +378,16 @@ License: You must have a valid license purchased only from themeforest(the above
 			<td>"+userVO.telphone+"</td>\
 			<td>"+userVO.registerMode+"</td>\
 			<td>"+userVO.thirdPartyId+"</td>\
-			<td><button class='btn btn-sm red' id='"+userVO.id+"'><i class='fa fa-remove'></i>删除用户</button>    </td>\
+			<td><button class='btn btn-sm red' id='"+userVO.id+"' name='"+userVO.name+"'><i class='fa fa-remove'></i>删除用户</button>    </td>\
 			</tr>";
                 $("#container").append($(dom));
             }
             $("#container").on("click","button",function () {
-                console.log("debug:"+$(this).attr("id"));
-               deleteUser($(this).attr("id"));
+               if($(this).attr("name")==$('#userId').text()){
+                   alert("删除失败,原因为无法删除当前登陆的用户");
+               }else {
+                   deleteUser($(this).attr("id"));
+               }
             });
             $("#numOfUser").text(g_userList.length);
 
@@ -401,6 +404,8 @@ License: You must have a valid license purchased only from themeforest(the above
                         $('#userPic').attr("src", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2519824424,1132423651&fm=26&gp=0.jpg");
                         $('#userId').text(data);
                         $('#unlogin').hide();
+                        $("#userType").text("商家");
+
                     } else {
                         isLogin=false;
                         $('#userId').text("未登录");

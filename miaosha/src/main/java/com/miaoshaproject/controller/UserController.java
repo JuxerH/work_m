@@ -58,7 +58,9 @@ public CommonReturnType login(@RequestParam(name = "telphone")String telphone,@R
                                      @RequestParam(name = "name") String name,
                                      @RequestParam(name = "gender") int gender,
                                      @RequestParam(name = "age") Integer age,
-                                     @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+                                     @RequestParam(name = "password") String password,
+                                     @RequestParam(name = "userType") int userType
+                                     ) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
         String inSessionOtpCode = (String) this.httpServletRequest.getSession().getAttribute(telphone);
         if (!com.alibaba.druid.util.StringUtils.equals(otpCode, inSessionOtpCode)) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "短信验证码不符合");
@@ -70,6 +72,7 @@ public CommonReturnType login(@RequestParam(name = "telphone")String telphone,@R
         userModel.setTelphone(telphone);
         userModel.setRegisterMode("byphone");
         userModel.setEncrptPassword(this.EncodeByMd5(password));
+        userModel.setUserType(userType);
         userService.register(userModel);
         return CommonReturnType.create(null);
     }
