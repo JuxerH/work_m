@@ -84,13 +84,13 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                 <div class="create-account">
                     <p>
-                        <a href="javascript:;" id="register-btn" class="uppercase">创建一个新账户</a>
+                        <a href="javascript:" id="register-btn" class="uppercase">创建一个新账户</a>
                     </p>
                 </div>
             </form>
             <!-- END LOGIN FORM -->
             <!-- BEGIN REGISTRATION FORM -->
-            <form class="register-form">
+            <form class="register-form" id="my-register-form">
                 <h3 class="font-green">注册</h3>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">手机</label>
@@ -141,14 +141,14 @@ License: You must have a valid license purchased only from themeforest(the above
                     <input class="form-control" type="radio" name="userType" value="manager" id="manager">
                 </div>
 
-                <div class="form-group margin-top-20 margin-bottom-20">
+                <div class="form-group ">
                     <label class="check">
                         <input type="checkbox" name="tnc" id="agree_clause" /> 我同意
                         <a href="javascript:;"> 服务条款 </a> 和
                         <a href="javascript:;"> 个人权利条款 </a>
                     </label>
                 </div>
-                <div class="form-actions">
+                <div class="form-actions" style="margin-top: -30px">
                     <button type="button" id="register-back-btn" class="btn btn-default">返回</button>
                     <button type="button"  class="btn btn-success uppercase pull-right" id="register">确认</button>
                 </div>
@@ -299,6 +299,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     }
                 });
                 return false;
+            })
+            $("#register-btn").click(function () {
+                var result_top = $('#my-register-form').offset().top-40;//页面滚动到结果位置
+                    $('html,body').animate({scrollTop: result_top}, 1100);
             })
             $("#login").on("click", function () {
                 var telphone = $("#telphone").val();
