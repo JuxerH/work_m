@@ -301,6 +301,7 @@ License: You must have a valid license purchased only from themeforest(the above
             $.ajax({
                 type: "GET",
                 url: "http://localhost:8090/item/list",
+                dataType:"json",
                 xhrFields:{
                     withCredentials:true,
                 },
@@ -310,7 +311,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         console.log("加载成功！！");
                         reloadDom();
                     } else {
-                        alert("获取商品信息失败，原因为" + data.data.errMsg);
+                        alert("获取商品信息失败，原因为" + data.data);
                     }
                 },
                 error: function(data) {
@@ -339,10 +340,10 @@ License: You must have a valid license purchased only from themeforest(the above
                 withCredentials:true,
             },
             success: function(data) {
-                if(data.status!="fail"){
-                    console.log("登陆成功");
+                console.log(data);
+                if(data.data!="unlogin"){
                     $('#userPic').attr("src", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2519824424,1132423651&fm=26&gp=0.jpg");
-                    $('#userId').text(data);
+                    $('#userId').text(data.data);
                     $('#unlogin').hide();
                     $.ajax({
                         url:"http://localhost:8090/user/userType",
@@ -380,6 +381,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     $('#haslogin').hide();
                     $('#profile').hide();
                 }
+            },
+            error:function () {
+                alert("获取登陆状态失败");
             }
 
         });

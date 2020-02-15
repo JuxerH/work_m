@@ -129,7 +129,9 @@ public String EncodeByMd5(String str) throws NoSuchAlgorithmException, Unsupport
     @RequestMapping(value = "/userType")
     @ResponseBody
     public CommonReturnType userType() throws BusinessException {
-        UserModel userModel=userService.getUserById(Integer.valueOf(httpServletRequest.getSession().getAttribute("userId").toString()));
+        if (httpServletRequest.getSession().getAttribute("userId")==null)return CommonReturnType.create(null);;
+        Integer nowLoginId=Integer.valueOf(httpServletRequest.getSession().getAttribute("userId").toString());
+        UserModel userModel=userService.getUserById(nowLoginId);
         return CommonReturnType.create(userModel.getUserType());
     }
 
@@ -143,9 +145,11 @@ public String EncodeByMd5(String str) throws NoSuchAlgorithmException, Unsupport
     }
     @RequestMapping(value = "/loginStatus")
     @ResponseBody
-    public String loginStatus(){
-        String name = this.httpServletRequest.getSession().getAttribute("username").toString();
-        return name;
+    public CommonReturnType loginStatus(){
+        if(this.httpServletRequest.getSession().getAttribute("username")==null){
+            return CommonReturnType.create("unlogin");
+        }
+        return CommonReturnType.create(this.httpServletRequest.getSession().getAttribute("username").toString());
     }
 
     @RequestMapping(value = "/deleteUser")
